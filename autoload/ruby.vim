@@ -37,6 +37,11 @@ function! ruby#fold(line)
     return 0
   endif
 
+  let comment_line_regex = '^\s*#.*$'
+  if getline(a:line) =~# comment_line_regex
+    return 2
+  endif
+
   let highlight_groups = s:get_highlight_groups(current_line, a:line)
   if index(highlight_groups, "rubyMethodBlock", 0, 1) >= 0 ||
    \ index(highlight_groups, "rubyDefine", 0, 1) >= 0 ||
